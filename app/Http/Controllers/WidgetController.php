@@ -12,7 +12,7 @@ class WidgetController extends Controller
     {
         $overlay = Overlay::where('uuid', $uuid)->firstOrFail();
         $donated = Donation::where('uuid', $uuid)->sum('amount');
-        return view('widgets.milestone', compact('overlay', 'donated'));
+        return view('widgets.milestone', compact('overlay', 'donated', 'uuid'));
     }
 
     public function leaderboard($uuid)
@@ -25,7 +25,7 @@ class WidgetController extends Controller
             ->limit(10)
             ->get();
 
-        return view('widgets.leaderboard', compact('overlay', 'donations'));
+        return view('widgets.leaderboard', compact('overlay', 'donations', 'uuid'));
     }
 
     public function milestoneJson($uuid)
