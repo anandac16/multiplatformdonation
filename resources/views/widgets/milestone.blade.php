@@ -92,7 +92,7 @@
                 target = parseInt(data.target);
                 donated = parseInt(data.donated);
                 container.style.backgroundColor = data.bg_color;
-                bar.style.color = data.text_color;
+                container.style.color = data.text_color;
                 bar.style.backgroundColor = data.text_color;
                 updateProgress();
             });
@@ -127,7 +127,7 @@
                         target = data.target;
                         donated = data.donated;
                         container.style.backgroundColor = data.bg_color;
-                        bar.style.color = data.text_color;
+                        container.style.color = data.text_color;
                         bar.style.backgroundColor = data.text_color;
                         updateProgress();
                     });
