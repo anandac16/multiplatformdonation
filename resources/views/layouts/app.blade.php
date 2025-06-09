@@ -42,10 +42,13 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-            <div class="container">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
                 <a class="navbar-brand" href="{{ route('dashboard') }}">Donasi Dashboard</a>
-                <div class="collapse navbar-collapse">
+                <button id="menu-toggle" class="btn d-md-none rounded-circle mr-3"" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a href="/howto" class="nav-link">How to</a></li>
                         <li class="nav-item"><a href="/tokens/{{ session('user_uuid') }}" class="nav-link">Tokens</a></li>
@@ -62,8 +65,8 @@
                         @endauth
                     </ul>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
 
         <main class="py-4">
             @yield('content')
@@ -81,6 +84,5 @@
             <script type='text/javascript' src='https://edge-cdn.trakteer.id/js/embed/trbtn.min.js?v=14-05-2025'></script><script type='text/javascript'>(function(){var trbtnId=trbtn.init('Buy me coffee','#E91E63','https://trakteer.id/achanch','https://trakteer.id/images/mix/coffee.png','40');trbtn.draw(trbtnId);})();</script>
         </div>
     </footer>
-
 </body>
 </html>
