@@ -30,6 +30,18 @@ class DonationController extends Controller
             return response()->json(['message' => 'Already received'], 200);
         }
 
+        // FILTER TEST DONATIONS
+        $blockKeywords = ['Ini hanya test notifikasi', 'Ini adalah pesan contoh', 'THIS IS A FAKE MESSAGE', '[ Stream Test ]'];
+        $lowerName = strtolower($validated['name']);
+        $lowerMsg = strtolower($validated['message'] ?? '');
+
+        foreach ($blockKeywords as $keyword) {
+            if (str_contains($lowerName, strtolower($keyword)) || str_contains($lowerMsg, strtolower($keyword))) {
+                return response()->json(['ignored' => 'Test donation detected'], 200);
+            }
+        }
+
+
         Donation::create([
             'uuid' => $validated['uuid'],
             'platform' => $validated['platform'],
