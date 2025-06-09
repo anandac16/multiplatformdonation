@@ -47,7 +47,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="container">
         <h2 id="title">{{ $overlay->leaderboard_title }}</h2>
 
         <ul id="leaderboard-list" class="leaderboard-list">
@@ -92,8 +92,8 @@
             .then(res => res.json())
             .then(data => {
                 titleEl.textContent = data.title || 'Top Donators';
-                container.backgroundColor = data.bg_color || '#000';
-                container.color = data.text_color || '#fff';
+                container.style.backgroundColor = data.bg_color || '#000';
+                container.style.color = data.text_color || '#fff';
                 updateList(data.data || []);
             });
 

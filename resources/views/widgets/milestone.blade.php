@@ -124,7 +124,7 @@
                         titleEl.textContent = data.title;
                         target = data.target;
                         donated = data.donated;
-                        document.body.style.backgroundColor = data.bg_color;
+                        container.style.backgroundColor = data.bg_color;
                         bar.style.color = data.text_color;
                         bar.style.backgroundColor = data.text_color;
                         updateProgress();
