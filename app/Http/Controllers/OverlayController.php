@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Overlay;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class OverlayController extends Controller
@@ -33,6 +34,13 @@ class OverlayController extends Controller
         $overlay->milestone_text_color = $request->text_color;
         $overlay->save();
 
+        Http::withHeaders([
+            'Authorization' => 'Bearer ' . env('WEBHOOK_SHARED_SECRET'),
+        ])->post(env('WEBHOOK_URL') . '/api/reload-widget', [
+            'uuid' => $uuid,
+            'type' => 'milestone' // 'milestone' or 'leaderboard'
+        ]);
+
         return back()->with('success', 'Milestone overlay updated!');
     }
 
@@ -60,6 +68,13 @@ class OverlayController extends Controller
         $overlay->leaderboard_bg_color = $request->bg_color;
         $overlay->leaderboard_text_color = $request->text_color;
         $overlay->save();
+
+        Http::withHeaders([
+            'Authorization' => 'Bearer ' . env('WEBHOOK_SHARED_SECRET'),
+        ])->post(env('WEBHOOK_URL') . '/api/reload-widget', [
+            'uuid' => $uuid,
+            'type' => 'leaderboard' // 'milestone' or 'leaderboard'
+        ]);
 
         return back()->with('success', 'Leaderboard overlay updated!');
     }

@@ -48,17 +48,19 @@
 </head>
 <body>
     <div class="container">
-        <h2 id="title">Loading..</h2>
+        <h2 id="title">{{ $overlay->leaderboard_title }}</h2>
 
         <ul id="leaderboard-list" class="leaderboard-list">
         </ul>
     </div>
     <script>
         const uuid = '{{ $uuid }}';
-        const baseUrl = @json(env('WEBHOOK_URL'));
+        const baseUrl = @json(env('APP_URL'));
+        const webhookUrl = @json(env('WEBHOOK_URL'));
 
+        const container = document.getElementById('container');
         const listEl = document.getElementById('leaderboard-list');
-        const titleEl = document.getElementById('leaderboard-title');
+        const titleEl = document.getElementById('title');
 
         function formatRupiah(amount) {
             return 'Rp' + amount.toLocaleString('id-ID');
@@ -90,13 +92,13 @@
             .then(res => res.json())
             .then(data => {
                 titleEl.textContent = data.title || 'Top Donators';
-                document.body.style.backgroundColor = data.bg_color || '#000';
-                document.body.style.color = data.text_color || '#fff';
+                container.backgroundColor = data.bg_color || '#000';
+                container.color = data.text_color || '#fff';
                 updateList(data.data || []);
             });
 
         // WebSocket connection
-        const socket = io(baseUrl.replace(/^https?/, 'wss'), {
+        const socket = io(webhookUrl.replace(/^https?/, 'wss'), {
             // transports: ['websocket']
         });
 
@@ -111,6 +113,20 @@
                     });
             }
         });
+
+        socket.on('reload-widget', data => {
+            if (data.type === 'leaderboard') {
+                fetch(`${baseUrl}/api/widgets/leaderboard/${uuid}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        titleEl.textContent = data.title || 'Top Donators';
+                        container.style.backgroundColor = data.bg_color;
+                        container.style.color = data.text_color;
+                        updateList(data.data || []);
+                    });
+            }
+        });
+
     </script>
 </body>
 </html>

@@ -27,8 +27,6 @@ Route::get('/tokens/{uuid}', [TokenController::class, 'jsonData'])
 Route::post('/donation', [DonationController::class, 'storeJson'])
     ->middleware('verify.vps.secret');
 
-Route::get('/widgets/milestone/{uuid}', [WidgetController::class, 'milestoneJson'])
-    ->middleware('verify.vps.secret');
+Route::get('/widgets/milestone/{uuid}', [WidgetController::class, 'milestoneJson']);
 
-Route::get('/widgets/leaderboard/{uuid}', [WidgetController::class, 'leaderboardJson'])
-    ->middleware('verify.vps.secret');
+Route::get('/widgets/leaderboard/{uuid}', [WidgetController::class, 'leaderboardJson']);
