@@ -9,6 +9,29 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #app {
+            flex: 1;
+            padding: 20px;
+        }
+        footer {
+            background:#5a5959; 
+            color:#fff; 
+            padding:10px; 
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            font-family:sans-serif;
+        }
+    </style>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -46,7 +69,7 @@
             @yield('content')
         </main>
     </div>
-    <footer style="background:#5a5959; color:#fff; padding:10px; display:flex; justify-content:space-between; align-items:center; font-family:sans-serif;">
+    <footer>
         <div style="display: flex; align-items: center; gap: 20px;">
             <span>Find me:</span>
             <a href="https://www.facebook.com/achannnnnnnnnn" target="_blank"><i class="fab fa-facebook-f"></i></a>
