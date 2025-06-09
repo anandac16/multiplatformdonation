@@ -13,7 +13,7 @@
             padding: 10px;
             border: black 1px solid;
             box-shadow: 5px 5px black;
-            max-width: 400px;
+            max-width: 500px;
         }
 
         h2 {
@@ -63,7 +63,7 @@
         const titleEl = document.getElementById('title');
 
         function formatRupiah(amount) {
-            return 'Rp' + amount.toLocaleString('id-ID');
+            return 'Rp' + parseInt(amount).toLocaleString('id-ID');
         }
 
         function updateList(entries) {

@@ -12,6 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -45,5 +46,18 @@
             @yield('content')
         </main>
     </div>
+    <footer style="background:#5a5959; color:#fff; padding:10px; display:flex; justify-content:space-between; align-items:center; font-family:sans-serif;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <span>Find me:</span>
+            <a href="https://www.facebook.com/achannnnnnnnnn" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://x.com/Achandesu_" target="_blank"><i class="fab fa-x-twitter"></i></a>
+        </div>
+
+        <div>
+            <!-- Trakteer button embed -->
+            <script type='text/javascript' src='https://edge-cdn.trakteer.id/js/embed/trbtn.min.js?v=14-05-2025'></script><script type='text/javascript'>(function(){var trbtnId=trbtn.init('Buy me coffee','#E91E63','https://trakteer.id/achanch','https://trakteer.id/images/mix/coffee.png','40');trbtn.draw(trbtnId);})();</script>
+        </div>
+    </footer>
+
 </body>
 </html>
