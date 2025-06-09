@@ -20,15 +20,22 @@
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
             <div class="container">
-                <a class="navbar-brand" href="#">Donasi Dashboard</a>
+                <a class="navbar-brand" href="{{ route('dashboard') }}">Donasi Dashboard</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a href="/howto" class="nav-link">How to</a></li>
+                        <li class="nav-item"><a href="/tokens/{{ session('user_uuid') }}" class="nav-link">Tokens</a></li>
+                        @if(!session('user_uuid'))
+                            <li class="nav-item"><a href="/connect" class="nav-link">Connect</a></li>
+                        @endif
                         @if(session('user_uuid'))
-                            <li class="nav-item"><a href="/tokens/{{ session('user_uuid') }}" class="nav-link">Tokens</a></li>
                             <li class="nav-item"><a href="/overlays/milestone" class="nav-link">Milestone</a></li>
                             <li class="nav-item"><a href="/overlays/leaderboard" class="nav-link">Leaderboard</a></li>
                             <li class="nav-item"><a href="/donations" class="nav-link">Donation History</a></li>
                         @endif
+                        @auth
+                            <li class="nav-item"><a href="/monitor" class="nav-link">Monitor</a></li>
+                        @endauth
                     </ul>
                 </div>
             </div>

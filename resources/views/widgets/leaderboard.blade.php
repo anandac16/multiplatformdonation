@@ -97,7 +97,7 @@
 
         // WebSocket connection
         const socket = io(baseUrl.replace(/^https?/, 'wss'), {
-            transports: ['websocket']
+            // transports: ['websocket']
         });
 
         socket.emit('join-room', uuid);

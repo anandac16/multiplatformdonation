@@ -19,6 +19,9 @@ class HomeController extends Controller
 
     public function index()
     {
+        if(session('user_uuid')) {
+            return redirect(route('dashboard'));
+        }
         return view('index');
     }
 
@@ -38,5 +41,10 @@ class HomeController extends Controller
     public function dashboard()
     {
         return view('dashboard');
+    }
+
+    public function howto()
+    {
+        return view('howto');
     }
 }

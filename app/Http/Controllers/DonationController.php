@@ -19,21 +19,21 @@ class DonationController extends Controller
         $validated = $request->validate([
             'uuid' => 'required|uuid',
             'platform' => 'required|string',
-            'id' => 'required|string',
+            'external_id' => 'required|string',
             'name' => 'required|string',
             'amount' => 'required|numeric|min:1',
             'message' => 'nullable|string',
         ]);
 
         // Prevent duplicate
-        if (Donation::where('external_id', $validated['id'])->exists()) {
+        if (Donation::where('transaction_id', $validated['external_id'])->exists()) {
             return response()->json(['message' => 'Already received'], 200);
         }
 
         Donation::create([
             'uuid' => $validated['uuid'],
             'platform' => $validated['platform'],
-            'external_id' => $validated['id'],
+            'transaction_id' => $validated['external_id'],
             'name' => $validated['name'],
             'amount' => $validated['amount'],
             'message' => $validated['message'] ?? '',

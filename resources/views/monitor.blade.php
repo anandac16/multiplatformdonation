@@ -8,12 +8,15 @@
 
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script>
-    const socket = io('wss://server.achanvt.com', {
-        transports: ['websocket']
+    const baseUrl = @json(env('WEBHOOK_URL'));
+    let totalConnected = 0;
+    const socket = io(baseUrl.replace(/^https?/, 'wss'), {
+        // transports: ['websocket']
     });
 
     socket.on('widget-count', data => {
-        document.getElementById('widget-count').textContent = data.count;
+        totalConnected = (data.count > 0) ? data.count - 1 : 0;
+        document.getElementById('widget-count').textContent = totalConnected;
     });
 </script>
 @endsection

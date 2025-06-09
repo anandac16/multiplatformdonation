@@ -33,24 +33,27 @@
 </head>
 <body>
     <div class="container">
-        <h2 id="title">Loading..</h2>
+        <h2 id="title">{{ $overlay->milestone_title }}</h2>
         <div class="progress">
-            <div class="progress-bar" id="progressBar" style="width: 0%">0%</div>
+            @php
+                $percent = min(100, ($donated / $overlay->milestone_target) * 100);
+            @endphp
+            <div class="progress-bar" id="progressBar" style="width: {{ $percent }}%">{{ $percent }}%</div>
         </div>
-        <p id="amountText">Loading</p>
+        <p id="amountText">Rp. {{ number_format($donated) }} dari Rp. {{ number_format($overlay->milestone_target) }}</p>
     </div>
     <script>
         const uuid = '{{ $uuid }}';
         const baseUrl = @json(env('WEBHOOK_URL'));
-        let donated = 0;
-        let target = 1000;
+        let donated = parseInt(@json($donated));
+        let target = parseInt(@json($overlay->milestone_target));
 
         const bar = document.getElementById('progressBar');
         const amountText = document.getElementById('amountText');
         const titleEl = document.getElementById('title');
 
         function formatRupiah(value) {
-            return 'Rp' + value.toLocaleString('id-ID');
+            return 'Rp' + parseInt(value).toLocaleString('id-ID');
         }
 
         function updateProgress() {
@@ -64,9 +67,8 @@
         fetch(`${baseUrl}/api/widgets/milestone/${uuid}`)
             .then(res => res.json())
             .then(data => {
-                titleEl.textContent = data.title;
-                target = data.target;
-                donated = data.donated;
+                target = parseInt(data.target);
+                donated = parseInt(data.donated);
                 document.body.style.backgroundColor = data.bg_color;
                 bar.style.color = data.text_color;
                 bar.style.backgroundColor = data.text_color;
@@ -75,14 +77,20 @@
 
         // Connect to WebSocket
         const socket = io(baseUrl.replace(/^https?/, 'wss'), {
-            transports: ['websocket']
+            cors: {
+                origin: "*", // or specific domain
+                methods: ["GET", "POST"],
+                allowedHeaders: ["*"],
+                credentials: true
+            }
+            // transports: ['websocket']
         });
 
         socket.emit('join-room', uuid);
 
         socket.on('donation', data => {
             if (data.uuid === uuid) {
-                donated += data.amount;
+                donated += parseInt(data.amount);
                 updateProgress();
             }
         });

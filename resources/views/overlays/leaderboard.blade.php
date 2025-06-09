@@ -37,10 +37,26 @@
 
         <div class="mb-3">
             <label for="widget_url" class="form-label">Widget URL</label>
-            <input type="text" readonly class="form-control" value="{{ route('widget.leaderboard', session('user_uuid')) }}">
+            <input type="text" id="widget_url" onclick="copyText()" readonly class="form-control" value="{{ route('widget.leaderboard', session('user_uuid')) }}">
         </div>
 
         <button type="submit" class="btn btn-primary">Save Settings</button>
     </form>
+    <script>
+        function copyText() {
+            // Get the text field
+            var copyText = document.getElementById("widget_url");
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+
+            // Alert the copied text
+            alert("Copied to clipboard");
+        }
+    </script>
 </div>
 @endsection

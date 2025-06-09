@@ -35,13 +35,15 @@ Route::middleware(['auth'])->group(function () {
 // Route::get('widget/milestone/{id}', [MilestoneController::class, 'widget'])->name('milestone.widget');
 // Route::get('widget/leaderboard/{id}', [LeaderboardController::class, 'widget'])->name('leaderboard.widget');
 
-Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/', [HomeController::class, 'dashboard'])->name('index');
 Route::post('/check-uuid', [HomeController::class, 'checkUuid'])->name('check.uuid');
 Route::get('/tokens', [TokenController::class, 'index'])->name('tokens.index');
 Route::post('/tokens', [TokenController::class, 'store'])->name('tokens.store');
+Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+Route::get('/howto', [HomeController::class, 'howto'])->name('howto');
+Route::get('/connect', [HomeController::class, 'index'])->name('connect');
 
 Route::middleware(['check.uuid'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/tokens/{uuid}', [TokenController::class, 'index'])->name('tokens.show');
     Route::post('/tokens/{uuid}', [TokenController::class, 'update'])->name('tokens.update');

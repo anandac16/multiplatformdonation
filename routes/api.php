@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/tokens/{uuid}', [TokenController::class, 'jsonData'])
     ->middleware('verify.vps.secret');
 
-Route::post('/donations', [DonationController::class, 'storeJson'])
+Route::post('/donation', [DonationController::class, 'storeJson'])
     ->middleware('verify.vps.secret');
 
 Route::get('/widgets/milestone/{uuid}', [WidgetController::class, 'milestoneJson'])

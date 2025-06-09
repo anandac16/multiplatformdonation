@@ -25,12 +25,28 @@
 
         @if(isset($token))
             <div class="mb-3">
-                <label for="uuid" class="form-label">UUID</label>
-                <input type="text" readonly class="form-control-plaintext" value="{{ $token->uuid }}">
+                <label for="uuid" class="form-label">Webhook URL</label>
+                <input type="text" id="webhook_url" readonly class="form-control-plaintext" value="{{ env('WEBHOOK_URL').'/webhook/'.$token->uuid }}" onclick="copyText()">
             </div>
         @endif
 
         <button type="submit" class="btn btn-primary">{{ isset($token) ? 'Update' : 'Simpan' }}</button>
     </form>
+    <script>
+        function copyText() {
+            // Get the text field
+            var copyText = document.getElementById("webhook_url");
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+
+            // Alert the copied text
+            alert("Copied to clipboard");
+        }
+    </script>
 </div>
 @endsection

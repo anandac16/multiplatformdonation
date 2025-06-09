@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // ...
         'check.uuid' => \App\Http\Middleware\CheckUserUuid::class,
+        'verify.vps.secret' => \App\Http\Middleware\VerifyVpsSecret::class,
     ];
 }
